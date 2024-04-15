@@ -3,6 +3,12 @@ from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from django.db.models import UniqueConstraint
 
+from .constants import (COLOR_REGEX, MAX_HEX_COLOR_LENGTH,
+                        MAX_INGREDIENT_NAME_LENGTH,
+                        MAX_MEASUREMENT_UNIT_LENGTH, MAX_RECIPE_NAME_LENGTH,
+                        MAX_SLUG_LENGTH, MAX_TAG_NAME_LENGTH, MIN_AMOUNT_VALUE,
+                        MIN_COOKING_TIME_VALUE)
+
 User = get_user_model()
 
 
@@ -11,11 +17,11 @@ class Ingredient(models.Model):
 
     name = models.CharField(
         'Название',
-        max_length=200
+        max_length=MAX_INGREDIENT_NAME_LENGTH
     )
     measurement_unit = models.CharField(
         'Единица измерения',
-        max_length=200
+        max_length=MAX_MEASUREMENT_UNIT_LENGTH
     )
 
     class Meta:
@@ -33,15 +39,15 @@ class Tag(models.Model):
     name = models.CharField(
         'Название',
         unique=True,
-        max_length=200
+        max_length=MAX_TAG_NAME_LENGTH
     )
     color = models.CharField(
         'Цветовой HEX-код',
         unique=True,
-        max_length=7,
+        max_length=MAX_HEX_COLOR_LENGTH,
         validators=[
             RegexValidator(
-                regex='^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$',
+                regex=COLOR_REGEX,
                 message='Не является HEX цветом'
             )
         ]
@@ -49,7 +55,7 @@ class Tag(models.Model):
     slug = models.SlugField(
         'Уникальный слаг',
         unique=True,
-        max_length=200
+        max_length=MAX_SLUG_LENGTH
     )
 
     class Meta:
@@ -65,7 +71,7 @@ class Recipe(models.Model):
 
     name = models.CharField(
         'Название',
-        max_length=200
+        max_length=MAX_RECIPE_NAME_LENGTH
     )
     author = models.ForeignKey(
         User,
@@ -83,8 +89,8 @@ class Recipe(models.Model):
         'Время приготовления',
         validators=[
             MinValueValidator(
-                1,
-                message='Время приготовления не может быть меньше 1'
+                MIN_COOKING_TIME_VALUE,
+                message=f'Время не может быть меньше {MIN_COOKING_TIME_VALUE}'
             )
         ]
     )
@@ -127,8 +133,8 @@ class IngredientInRecipe(models.Model):
         'Количество',
         validators=[
             MinValueValidator(
-                1,
-                message='Количество ингридиента не может быть меньше 1'
+                MIN_AMOUNT_VALUE,
+                message=f'Ингридиента не может быть меньше {MIN_AMOUNT_VALUE}'
             )
         ]
     )
