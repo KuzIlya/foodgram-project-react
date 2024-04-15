@@ -25,4 +25,3 @@ class SubscribeAdmin(admin.ModelAdmin):
     list_display = ('user', 'author',)
     list_editable = ('user', 'author',)
     empty_value_display = EMPTY_VALUE_TEXT
-
