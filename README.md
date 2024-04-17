@@ -13,6 +13,13 @@ Technologies
 - Continuous Deployment
 - Deployment on Remote Server
 
+## Admin info
+
+```
+Username: aaa@aaa.com
+Password: 22222222Aa
+```
+
 ## Clone the repository
 ```
 git clone https://github.com/KuzIlya/foodgram-project-react.git
