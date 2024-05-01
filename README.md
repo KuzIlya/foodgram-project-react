@@ -111,4 +111,4 @@ SECRET_KEY='Django secret key'
 ```
 docker-compose -f docker-compose-local.yml up -d
 ```
-After the project is launched, it will be available at: http://localhost/
+After the project is launched, it will be available at: https://bigaboba.ddns.net/
