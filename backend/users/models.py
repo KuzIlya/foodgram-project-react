@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import UniqueConstraint
+from django.db.models import F, Q
+from django.db.models import CheckConstraint, UniqueConstraint
 
 from .constants import MAX_EMAIL_LENGTH
 
@@ -47,7 +48,11 @@ class Subscribe(models.Model):
             UniqueConstraint(
                 fields=['user', 'author'],
                 name='unique_subscription'
-            )
+            ),
+            CheckConstraint(
+                check=~Q(user=F('author')),
+                name='self_following',
+            ),
         ]
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
