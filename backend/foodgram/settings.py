@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', default='False').lower() == 'true'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='localhost').split()
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='bigaboba.ddns.net').split()
 
 INSTALLED_APPS = [
     'django.contrib.admin',
