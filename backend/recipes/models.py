@@ -96,7 +96,7 @@ class Recipe(models.Model):
 
             MaxValueValidator(
                 MAX_COOKING_TIME,
-                message=f'Время приготовления должно быть '
+                message='Время приготовления должно быть '
                 f'не более {MAX_COOKING_TIME} минуты!'
             )
         ]
